@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue3 styles</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Hello Vue3</title>
+    
+</head>
+<body>
+    <div id="app">
+       <div v-bind:style="{backgroundColor:'aqua', fontSize:fontSizeTemp+'px'}">Hello vue3 --styles---</div>  
+       <div :style="{'background-color':'red', 'font-size':'40px'}">Hello vue3 --styles---</div>  
+        <br>
+        <hr>
+       <span class="padding-medium" v-bind:class="{'h1':isMaintitle(),'bg-blue':bluebackground()}" >Random-text</span>
+       <span class="padding-medium" :class="[isMaintitle()? Maintitle: '',borderClass]" >Random-text</span>
+        <span v-bind:style="someStyle.style01">Random Style Binding</span>
+        
+    </div>  
+</body>
+<script>
+    const {createApp,ref,reactive}=Vue;
+    const fontSizeTemp = ref(69);
+    createApp({
+        setup(){
+            const Maintitle ={
+                h1:true,
+                "bg-grey":true,
+            };
+            const borderClass={
+                border:true,
+            }
+            const someStyle ={
+                style01:{
+                    fontSize:"40px",
+                    backgroundColor:"lightgreen",
+                    margin:"20px",
+                    border:"1px solid black",
+            
+                }
+               }
+            function isMaintitle(){
+                     return false;
+                }
+            function bluebackground(){
+                return true;
+            }
+            return {  
+                Maintitle,
+                fontSizeTemp,
+                isMaintitle,
+                bluebackground,
+                someStyle,
+                borderClass,
+            };
+        }, 
+    }).mount("#app");
+</script>
+<style>
+    .h1{
+        font-size: 20px;
+        color:chocolate;
+    }
+    .h2{
+        font-size: 40px;
+        color:rgb(0, 23, 128);
+    }
+    .bg-grey{
+        background-color: lightgrey;
+    }
+    .bg-blue{
+        background-color: lightblue;
+    }
+    .bg-coral{
+        background-color: lightcoral;
+    }
+    .padding-medium{
+        padding:20px;
+    }
+    .border{
+        border: 10px solid black;
+    }
+   
+</style>
+</html>
