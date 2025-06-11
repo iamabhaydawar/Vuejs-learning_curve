@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <title>Hello Vue</title>
+</head>
+<body>
+  <div id="app">
+    <span v-html="getMessage()"></span>
+    <!-- <p>luckyNumbers list: {{ luckyNumbers[0] }}</p> -->
+
+    <span v-for="(number, index) in luckyNumbers" :key="number">
+     <br> {{index+1}}.luckyNumber:{{ number }}
+    </span>
+
+    <p>Projects in pipeline</p>
+    <ul>
+      <li v-for="(project,index) in employee.projects" >
+        <span>
+           {{index+1}} - "{{project.name}}" timeline is -
+           {{project.timeline}}
+        </span>
+        <input type="text"/>
+      </li>
+    </ul>
+    <hr>
+{{shuffleEmloyeeProjectsOrder()}}
+
+    <p>{{ employee.name }} is {{ employee.age }} years old and {{employee.position}}</p>
+    <p v-show="employee.hasCorporateCard">
+      Spending Limit: {{ employee.spendingLimit }}
+      Years with Company: {{ employee.yearsWithCompany }}
+    </p>
+    <p v-if="employee.hasCorporateCard">
+      Spending Limit: {{ employee.spendingLimit }}
+      Years with Company: {{ employee.yearsWithCompany }}
+    </p>
+    <p v-else-if="employee.salary > 34000 && employee.yearsWithCompany > 4">
+      Employee is eligible for a corporate card
+    </p>
+    <p v-else>
+      No corporate card
+    </p>
+
+
+
+    <ul>
+      <li v-for="(key,value) in employee">
+        <span>{{key}}:{{value}}</span>
+      </li>
+    </ul>     
+
+
+    <!-- <p v-once>Render Once Lucky Number: {{ luckyNumber }}</p> -->
+    <!-- simply display the ref -->
+    <!-- <p>Random number: {{ luckyNumber }}</p> -->
+    <!-- <a v-bind:href="blogUrl">Vue.js Guide</a> -->
+
+    <!-- <p>
+      luckyNumber is an
+      {{ luckyNumber % 2 === 0 ? 'even number' : 'odd number' }}`
+    </p> -->
+  </div>
+
+  <script>
+    const { createApp, ref, onMounted,reactive } = Vue;
+
+    createApp({
+      setup() {
+        const message = "hello Vue";
+        const luckyNumbers = [1,2,3,4,5,6,7,8,9,10];
+        // const blogUrl = "https://vuejs.org/guide/introduction.html";
+        // const luckyNumber = ref(5);
+        const employee =reactive( {
+          name: "John",
+          age: 30,
+          position: "Developer",
+          salary: 35000,
+          hasCorporateCard: false,
+          spendingLimit: 1000,
+          yearsWithCompany:5,
+          //projects : array of objects
+          projects: [{
+            name: "Project 1",
+            timeline: "2 years"
+          },
+          {
+            name: "Project 2",
+            timeline: "1 year"
+          },
+          {
+            name: "Project 3",
+            timeline: "3 years"
+          }]
+        });
+        function getMessage() {
+          return `<h1>${message}</h1>`;
+        }
+
+        // function updateRandomLuckyNumber() {
+        //   // after 1s, pick a new random and
+        //   // because luckyNumber is a ref, the UI will update
+        //   setTimeout(() => {
+        //     luckyNumber.value =77;
+        //     employee.position ="lol"; // you can also add properties to the employee object
+        //   }, 1000);
+        // }
+
+        // // run once when the component is mounted
+        // onMounted(updateRandomLuckyNumber);
+        
+        function shuffleEmloyeeProjectsOrder(){
+          setTimeout(()=>{
+            employee.projects.sort(()=>Math.random()-0.5);
+          },2000);
+        }
+
+
+        return {
+          getMessage,
+          luckyNumbers,
+          employee,
+          shuffleEmloyeeProjectsOrder
+          // luckyNumber, 
+          // blogUrl,            // ← expose the ref
+          // updateRandomLuckyNumber  // optional if you want to call it again later
+        };
+      }
+    }).mount("#app");
+  </script>
+</body>
+</html>
