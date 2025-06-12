@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Hello Vue3 Events</title>
+</head>
+<body>
+    <div id="app">
+        <button v-on:click="buttonClick('Vue is exciting','hell0 vue3',$event)">Click Me Ahh!</button>
+        <p> x: {{ x }} y: {{ y }}</p>
+        
+   
+    </div>
+</body>
+<script>
+    const {createApp,ref,reactive}=Vue;
+    createApp({
+      setup(){
+        let x = ref(0);
+        let y = ref(0);
+
+        function buttonClick(message,message2,event){
+            x.value=event.x;
+            y.value=event.y;
+            console.log(event)
+            // alert(message);
+            // alert(message2);
+        }
+        return {buttonClick, x, y};
+      },
+    }).mount("#app");
+</script>
+</html>
