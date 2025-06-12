@@ -8,10 +8,14 @@
 </head>
 <body>
     <div id="app">
-        <button v-on:click="buttonClick('Vue is exciting','hell0 vue3',$event)">Click Me Ahh!</button>
-        <p> x: {{ x }} y: {{ y }}</p>
         
-   
+        <!-- <div v-on:click.once="buttonClick('Vue is exciting-div','hell0 vue3',$event)">Something exiting
+            <button v-on:click.stop="buttonClick('Vue is exciting-button','hell0 vue3',$event)">Click Me Ahh!</button>
+        </div> -->
+        <a href="https://www.perplexity.ai" v-on:click.prevent="buttonClick('Vue is exciting-button - Link',$event)">perplexity</a>
+        <p> x: {{ x }} y: {{ y }}</p>
+        <button v-on:click="pressEnter">Click me</button>
+        <input type="text" v-on:keyup.enter="pressEnter()"/>
     </div>
 </body>
 <script>
@@ -20,15 +24,18 @@
       setup(){
         let x = ref(0);
         let y = ref(0);
+        function pressEnter(){
+            alert("enterKey Pressed");
+        } return{pressEnter}
 
-        function buttonClick(message,message2,event){
-            x.value=event.x;
-            y.value=event.y;
-            console.log(event)
-            // alert(message);
-            // alert(message2);
-        }
-        return {buttonClick, x, y};
+        // function buttonClick(message,message2,event){
+        //     x.value=event.x;
+        //     y.value=event.y;
+        //     console.log(event)
+        //     alert(message);
+        //     alert(message2);
+        // }
+        // return {buttonClick, x, y};
       },
     }).mount("#app");
 </script>
