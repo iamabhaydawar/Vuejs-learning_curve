@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+      <title>Hello Vue3 Events</title>
+</head>
+<body>
+   <!-- <div id="app">Hello to Vue-3 <br>
+        <label> Name:<input type="text" v-model.trim="name"/></label><br>
+        <label> Age:<input type="text" v-model.number="age"/></label><br>
+     <p>{{name}} is {{age}} years old</p> -->
+     <div id="app"> <div>Learn Vue-3</div>
+        <p>{{ counter }}</p>
+        <p>{{ getFullName }}</p>
+        <button v-on:click="counter++">Increment</button>
+        <button v-on:click="counter--">Decrement</button>
+        <br>
+          <label> FirstName:<input type="text" v-model="firstName"/></label><br>
+    </div>
+   </div>
+</body>
+<script>
+    const {createApp,ref,reactive,computed}=Vue;
+    let name=ref('Abhay');
+    let age=ref(20);
+     createApp({
+     setup(){ 
+        let counter=ref(0);
+        let firstName= ref("Abhay");
+        let lastName=ref("Dawar");
+
+
+        const getFullName=computed((previous)=>{
+            console.log('previous value',previous)
+            if(previous=="Abhay Dawar"){
+                console.log('Dawar Abhay');
+            }
+            console.log("getFullname was called");
+            return firstName.value + " " + lastName.value;
+        });
+
+        return{counter,getFullName,firstName};
+    },
+}).mount("#app");
+
+</script>
+
+</html>
