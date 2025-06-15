@@ -21,10 +21,9 @@
         <br>
           <label> FirstName:<input type="text" v-model="firstName"/></label><br>
     </div>
-   </div>
 </body>
 <script>
-    const {createApp,ref,reactive,computed}=Vue;
+    const {createApp,ref,reactive,computed,watch}=Vue;
     let name=ref('Abhay');
     let age=ref(20);
      createApp({
@@ -33,7 +32,12 @@
         let firstName= ref("Abhay");
         let lastName=ref("Dawar");
 
-
+        watch(()=>counter.value,(newValue,oldValue)=>{
+            console.log('Counter value changed from',oldValue,"to",newValue);
+            if(newValue==5){
+                alert("Counter Value is 5")
+            }
+        })
         const getFullName=computed((previous)=>{
             console.log('previous value',previous)
             if(previous=="Abhay Dawar"){
